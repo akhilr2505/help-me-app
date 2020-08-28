@@ -6,7 +6,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("USER NAME"),
+        title: Text("USER-NAME"),
       ),
       drawer: HomeDrawer(),
       body: Center(
@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
                   elevation: 5,
                   child: Text(
                     "SOS",
-                    style: TextStyle(fontSize: 50),
+                    style: TextStyle(fontSize: 55),
                   ),
                   padding:
                       EdgeInsets.all(MediaQuery.of(context).size.width * 0.37),
