@@ -4,15 +4,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
-      body: Center(
-        child: FormScreen(),
-      ));
-}
-
 class FormScreen extends StatefulWidget {
   @override
   _FormScreenState createState() => _FormScreenState();
