@@ -133,7 +133,7 @@ class _FormScreenState extends State<FormScreen> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)),
                             onPressed: _saveForm,
-                            child: Text(_isLogin ? 'Login' : 'Signup'),
+                            child: Text(_isLogin ? 'Login' : 'Sign up'),
                           ),
                           FlatButton(
                             onPressed: () {
