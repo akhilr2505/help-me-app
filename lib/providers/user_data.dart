@@ -23,22 +23,62 @@ class User extends ChangeNotifier {
     Contacts(
         id: '1',
         avatar: null,
-        name: 'BokChoda',
+        name: 'John lock',
         type: 'friend',
         phone: '+9199999333'),
     Contacts(
         id: '2',
         avatar: null,
-        name: 'Non A BOKA',
+        name: 'Harry Quinn',
         type: 'friend',
-        phone: '+99'),
-    Contacts(id: '3', avatar: null, name: 'Polizz', type: 'auth', phone: '100'),
-    Contacts(id: '4', avatar: null, name: 'Amb', type: 'auth', phone: '101'),
+        phone: '+99 2343235432'),
+    Contacts(
+        id: '3',
+        avatar: null,
+        name: 'Polinski sharma',
+        type: 'friend',
+        phone: '+91 9834264327'),
+    Contacts(
+        id: '4',
+        avatar: null,
+        name: 'Ambika goyal',
+        type: 'friend',
+        phone: '+91 984321987435'),
     Contacts(
         id: '5',
         avatar: null,
-        name: 'Saatwik DADA',
+        name: 'Saatwik Rishi',
         type: 'friend',
-        phone: '+12345678')
+        phone: '+91 924985643'),
+    Contacts(
+        id: '6',
+        avatar: null,
+        name: 'Ambika goyal',
+        type: 'friend',
+        phone: '+91 984321987435'),
+    Contacts(
+        id: '7',
+        avatar: null,
+        name: 'Shashank Sinha',
+        type: 'friend',
+        phone: '+91 984321987435'),
+    Contacts(
+        id: '8',
+        avatar: null,
+        name: 'Gon freeks',
+        type: 'friend',
+        phone: '+91 984321923425'),
+    Contacts(
+        id: '9',
+        avatar: null,
+        name: 'kilua hiraku',
+        type: 'friend',
+        phone: '+91 945431987435'),
+    Contacts(
+        id: '10',
+        avatar: null,
+        name: 'Amol lakun',
+        type: 'friend',
+        phone: '+91 984321987435'),
   ];
 }
