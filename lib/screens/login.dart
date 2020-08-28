@@ -66,6 +66,10 @@ class _FormScreenState extends State<FormScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
+                          Image(
+                            image: AssetImage('/assets/images/logo.jpeg'),
+                            fit: BoxFit.cover,
+                          ),
                           TextFormField(
                             onSaved: (val) {
                               _info['email'] = val.trim();
