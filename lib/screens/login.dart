@@ -1,24 +1,16 @@
-import 'package:chat_app/widgets/image_pick.dart';
-import 'package:/cloud_firestore.dart';
 import 'dart:io';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+//import 'package:firebase_auth/';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class AuthScreen extends StatefulWidget {
-  @override
-  _AuthScreenState createState() => _AuthScreenState();
-}
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
-        body: Center(
-          child: FormScreen(),
-        ));
-  }
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
+      body: Center(
+        child: FormScreen(),
+      ));
 }
 
 class FormScreen extends StatefulWidget {
@@ -30,65 +22,9 @@ class _FormScreenState extends State<FormScreen> {
   File _image;
 
   bool _loading = false;
-  final _auth = FirebaseAuth.instance;
+  // final _auth = FirebaseAuth.instance;
 
-  void _saveForm() async {
-    AuthResult _authResult;
-    final _isValid = _key.currentState.validate();
-    FocusScope.of(context).unfocus();
-
-    if (_image == null && !_isLogin) {
-      Scaffold.of(context)
-          .showSnackBar(SnackBar(content: Text('Please select an image')));
-      return;
-    }
-
-    try {
-      if (_isValid) {
-        setState(() {
-          _loading = true;
-        });
-        _key.currentState.save();
-
-        if (_isLogin) {
-          {
-            _authResult = await _auth.signInWithEmailAndPassword(
-                email: _info['email'], password: _info['password']);
-          }
-        } else {
-          _authResult = await _auth.createUserWithEmailAndPassword(
-              email: _info['email'], password: _info['password']);
-          final ref = FirebaseStorage.instance
-              .ref()
-              .child('/user_images')
-              .child(
-                  _authResult.user.uid + Timestamp.now().toString() + '.jpg');
-
-          await ref.putFile(_image).onComplete;
-          final _url = await ref.getDownloadURL();
-
-          await Firestore.instance
-              .collection('users')
-              .document(_authResult.user.uid)
-              .setData({
-            'username': _info['username'],
-            'email': _info['email'],
-            'image': _url
-          });
-        }
-      }
-    } on PlatformException catch (err) {
-      print(err.message);
-      var message = "An error occured, please check your creds";
-      if (err.message != null) {
-        message = err.message;
-      }
-      setState(() {
-        _loading = false;
-      });
-      Scaffold.of(context).showSnackBar(SnackBar(content: Text(message)));
-    }
-  }
+  void _saveForm() async {}
 
   void _selectimg(File img) {
     _image = img;
@@ -139,7 +75,6 @@ class _FormScreenState extends State<FormScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          if (!_isLogin) PickImage(_selectimg),
                           TextFormField(
                             onSaved: (val) {
                               _info['email'] = val.trim();
