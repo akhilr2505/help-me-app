@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class Contacts {
   final String avatar;
   final String id;
@@ -7,10 +9,15 @@ class Contacts {
   Contacts({this.id, this.avatar, this.name, this.type, this.phone});
 }
 
-class User {
+class User extends ChangeNotifier {
   String name;
   String phone;
   String address;
+
+  List<Contacts> get contacts {
+    return [..._contacts];
+  }
+
   User _info;
   List<Contacts> _contacts = [
     Contacts(

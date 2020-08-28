@@ -27,8 +27,7 @@ class HomeDrawer extends StatelessWidget {
               leading: Icon(Icons.card_giftcard),
               title: Text('View Friends and Family'),
               onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => ViewFriend()));
+                Navigator.of(context).pushNamed(ViewFriend.routeName);
               }),
           Divider(),
           ListTile(
