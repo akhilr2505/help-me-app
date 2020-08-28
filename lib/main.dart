@@ -13,12 +13,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
+
     return MaterialApp(
       title: 'Help Me APP',
       theme: ThemeData.dark(),
       home: MyHomePage(),
-=======
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: User()),
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         home: MyHomePage(),
         routes: {ViewFriend.routeName: (ctx) => ViewFriend()},
       ),
->>>>>>> 7890c4a7a28337a626db8a3b78027d026ac33c4b
+
     );
   }
 }
