@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
                   elevation: 5,
                   child: Text(
                     "SOS",
-                    style: TextStyle(fontSize: 55),
+                    style: TextStyle(fontSize: 45),
                   ),
                   padding:
                       EdgeInsets.all(MediaQuery.of(context).size.width * 0.37),
