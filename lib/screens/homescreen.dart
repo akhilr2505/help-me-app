@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:helpmeapp/providers/logs_provider.dart';
 import 'package:helpmeapp/widgets/appdrawer.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +23,9 @@ class HomeScreen extends StatelessWidget {
           Text("HELP ME NOW", style: TextStyle(fontSize: 37)),
           RawMaterialButton(
             fillColor: Colors.red,
-            onPressed: () {},
+            onPressed: () {
+              Provider.of<LogsProvider>(context, listen: false).insertlog();
+            },
             elevation: 5,
             child: Text(
               "SOS",

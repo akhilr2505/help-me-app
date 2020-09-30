@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:helpmeapp/providers/logs_provider.dart';
 import 'package:helpmeapp/providers/user_data.dart';
 import 'package:helpmeapp/screens/homescreen.dart';
 import 'package:helpmeapp/screens/login.dart';
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: User()),
+        ChangeNotifierProvider.value(value: LogsProvider()),
       ],
       child: MaterialApp(
         title: 'Help Me App',
