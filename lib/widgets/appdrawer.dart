@@ -1,18 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:helpmeapp/providers/demo_login.dart';
 import 'package:helpmeapp/screens/addfriend.dart';
 import 'package:helpmeapp/screens/viewfriend.dart';
 import 'package:helpmeapp/screens/login.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/user_data.dart';
 
 class HomeDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _user = Provider.of<User>(context).getinfo;
     return Drawer(
       elevation: 5,
       child: ListView(
         children: [
-          Container(
+          AnimatedContainer(
+            duration: Duration(milliseconds: 300),
             color: Colors.blue,
-            height: MediaQuery.of(context).size.height * 0.3,
+            height:
+                _user.isloggedin ? MediaQuery.of(context).size.height * 0.3 : 0,
+            child: Card(
+              child: !_user.isloggedin
+                  ? null
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                          _user.name,
+                          style: TextStyle(fontSize: 40),
+                        ),
+                        Text(DemoLogin.email),
+                      ],
+                    ),
+            ),
           ),
           Divider(),
           ListTile(
@@ -47,10 +68,13 @@ class HomeDrawer extends StatelessWidget {
           Divider(),
           ListTile(
               leading: Icon(Icons.local_parking),
-              title: Text('Login'),
+              title: _user.isloggedin ? Text('Logout') : const Text("Login"),
               onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => AuthScreen()));
+                if (_user.isloggedin) {
+                  Provider.of<User>(context, listen: false).logout();
+                } else
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => AuthScreen()));
               }),
         ],
       ),

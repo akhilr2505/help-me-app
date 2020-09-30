@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:helpmeapp/providers/demo_login.dart';
 
 class Contacts {
   final String avatar;
@@ -9,16 +10,28 @@ class Contacts {
   Contacts({this.id, this.avatar, this.name, this.type, this.phone});
 }
 
-class User extends ChangeNotifier {
+class Uinfo {
+  bool isloggedin;
   String name;
   String phone;
   String address;
+  Uinfo(
+      {this.name = "DADU BHAIYA",
+      this.address,
+      this.phone,
+      this.isloggedin = true});
+}
 
+class User extends ChangeNotifier {
   List<Contacts> get contacts {
     return [..._contacts];
   }
 
-  User _info;
+  Uinfo _info = Uinfo();
+  Uinfo get getinfo {
+    return _info;
+  }
+
   List<Contacts> _contacts = [
     Contacts(
         id: '1',
@@ -81,4 +94,19 @@ class User extends ChangeNotifier {
         type: 'friend',
         phone: '+91 984321987435'),
   ];
+
+  int login(String id, String password) {
+    if (id == DemoLogin.email && password == DemoLogin.password) {
+      _info.isloggedin = true;
+      notifyListeners();
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
+  void logout() {
+    _info.isloggedin = false;
+    notifyListeners();
+  }
 }

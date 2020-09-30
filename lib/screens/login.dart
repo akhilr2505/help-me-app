@@ -4,6 +4,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:helpmeapp/widgets/appdrawer.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/user_data.dart';
 
 class AuthScreen extends StatelessWidget {
   @override
@@ -22,18 +25,22 @@ class FormScreen extends StatefulWidget {
 }
 
 class _FormScreenState extends State<FormScreen> {
-  File _image;
-
   bool _loading = false;
-  // final _auth = FirebaseAuth.instance;
 
-  void _saveForm() async {}
+  void _saveForm() async {
+    int c = Provider.of<User>(context, listen: false)
+        .login(_controller1.text, _controller.text);
 
-  void _selectimg(File img) {
-    _image = img;
+    if (c == 0) {
+      Scaffold.of(context)
+          .showSnackBar(SnackBar(content: const Text("There was an error")));
+    } else {
+      Navigator.of(context).popAndPushNamed('/');
+    }
   }
 
   final _controller = TextEditingController();
+  final _controller1 = TextEditingController();
   final _key = GlobalKey<FormState>();
   Map<String, String> _info = {'email': '', 'password': '', 'username': ''};
 
@@ -78,11 +85,12 @@ class _FormScreenState extends State<FormScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          Image(
-                            image: AssetImage('/assets/images/logo.jpeg'),
-                            fit: BoxFit.cover,
-                          ),
+                          // Image(
+                          //   image: AssetImage('/assets/images/logo.png'),
+                          //   fit: BoxFit.cover,
+                          // ),
                           TextFormField(
+                            controller: _controller1,
                             onSaved: (val) {
                               _info['email'] = val.trim();
                             },

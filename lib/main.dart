@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(value: User()),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Help Me App',
         theme: ThemeData.dark(),
         home: MyHomePage(),
         routes: {ViewFriend.routeName: (ctx) => ViewFriend()},
