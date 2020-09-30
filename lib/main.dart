@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:helpmeapp/providers/logs_provider.dart';
 import 'package:helpmeapp/providers/user_data.dart';
 import 'package:helpmeapp/screens/homescreen.dart';
-import 'package:helpmeapp/screens/login.dart';
+
 import 'package:helpmeapp/screens/viewfriend.dart';
 import 'package:provider/provider.dart';
 
