@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:helpmeapp/providers/demo_login.dart';
 import 'package:helpmeapp/screens/addfriend.dart';
+import 'package:helpmeapp/screens/logs.dart';
 import 'package:helpmeapp/screens/viewfriend.dart';
 import 'package:helpmeapp/screens/login.dart';
 import 'package:provider/provider.dart';
@@ -26,11 +27,13 @@ class HomeDrawer extends StatelessWidget {
                   : Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text(
-                          _user.name,
-                          style: TextStyle(fontSize: 40),
+                        Expanded(
+                          child: Text(
+                            _user.name,
+                            style: TextStyle(fontSize: 40),
+                          ),
                         ),
-                        Text(DemoLogin.email),
+                        Expanded(child: Text(DemoLogin.email)),
                       ],
                     ),
             ),
@@ -52,13 +55,12 @@ class HomeDrawer extends StatelessWidget {
               }),
           Divider(),
           ListTile(
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (ctx) => LogsScreen()));
+            },
             leading: Icon(Icons.description),
             title: Text('View Logs'),
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.data_usage),
-            title: Text('Change Logs'),
           ),
           Divider(),
           ListTile(

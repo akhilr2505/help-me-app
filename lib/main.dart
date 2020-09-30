@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Provider.of<LogsProvider>(context, listen: false).retrievelog();
     return Scaffold(
       body: HomeScreen(),
     );

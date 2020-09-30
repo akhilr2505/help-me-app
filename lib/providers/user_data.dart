@@ -16,10 +16,10 @@ class Uinfo {
   String phone;
   String address;
   Uinfo(
-      {this.name = "DADU BHAIYA",
+      {this.name = "YASH TRIPATHI",
       this.address,
       this.phone,
-      this.isloggedin = true});
+      this.isloggedin = false});
 }
 
 class User extends ChangeNotifier {
