@@ -1,23 +1,21 @@
-import 'package:chat_app/widgets/image_pick.dart';
-import 'package:/cloud_firestore.dart';
 import 'dart:io';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+//import 'package:firebase_auth/';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:helpmeapp/widgets/appdrawer.dart';
+import 'package:provider/provider.dart';
 
-class AuthScreen extends StatefulWidget {
-  @override
-  _AuthScreenState createState() => _AuthScreenState();
-}
+import '../providers/user_data.dart';
 
+class AuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
-        body: Center(
-          child: FormScreen(),
-        ));
+      appBar: AppBar(title: Text('LOGIN / REGISTER')),
+      body: FormScreen(),
+      drawer: HomeDrawer(),
+    );
   }
 }
 
@@ -27,74 +25,22 @@ class FormScreen extends StatefulWidget {
 }
 
 class _FormScreenState extends State<FormScreen> {
-  File _image;
-
   bool _loading = false;
-  final _auth = FirebaseAuth.instance;
 
   void _saveForm() async {
-    AuthResult _authResult;
-    final _isValid = _key.currentState.validate();
-    FocusScope.of(context).unfocus();
+    int c = Provider.of<User>(context, listen: false)
+        .login(_controller1.text, _controller.text);
 
-    if (_image == null && !_isLogin) {
+    if (c == 0) {
       Scaffold.of(context)
-          .showSnackBar(SnackBar(content: Text('Please select an image')));
-      return;
+          .showSnackBar(SnackBar(content: const Text("There was an error")));
+    } else {
+      Navigator.of(context).popAndPushNamed('/');
     }
-
-    try {
-      if (_isValid) {
-        setState(() {
-          _loading = true;
-        });
-        _key.currentState.save();
-
-        if (_isLogin) {
-          {
-            _authResult = await _auth.signInWithEmailAndPassword(
-                email: _info['email'], password: _info['password']);
-          }
-        } else {
-          _authResult = await _auth.createUserWithEmailAndPassword(
-              email: _info['email'], password: _info['password']);
-          final ref = FirebaseStorage.instance
-              .ref()
-              .child('/user_images')
-              .child(
-                  _authResult.user.uid + Timestamp.now().toString() + '.jpg');
-
-          await ref.putFile(_image).onComplete;
-          final _url = await ref.getDownloadURL();
-
-          await Firestore.instance
-              .collection('users')
-              .document(_authResult.user.uid)
-              .setData({
-            'username': _info['username'],
-            'email': _info['email'],
-            'image': _url
-          });
-        }
-      }
-    } on PlatformException catch (err) {
-      print(err.message);
-      var message = "An error occured, please check your creds";
-      if (err.message != null) {
-        message = err.message;
-      }
-      setState(() {
-        _loading = false;
-      });
-      Scaffold.of(context).showSnackBar(SnackBar(content: Text(message)));
-    }
-  }
-
-  void _selectimg(File img) {
-    _image = img;
   }
 
   final _controller = TextEditingController();
+  final _controller1 = TextEditingController();
   final _key = GlobalKey<FormState>();
   Map<String, String> _info = {'email': '', 'password': '', 'username': ''};
 
@@ -139,8 +85,12 @@ class _FormScreenState extends State<FormScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          if (!_isLogin) PickImage(_selectimg),
+                          // Image(
+                          //   image: AssetImage('/assets/images/logo.png'),
+                          //   fit: BoxFit.cover,
+                          // ),
                           TextFormField(
+                            controller: _controller1,
                             onSaved: (val) {
                               _info['email'] = val.trim();
                             },
@@ -207,7 +157,7 @@ class _FormScreenState extends State<FormScreen> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)),
                             onPressed: _saveForm,
-                            child: Text(_isLogin ? 'Login' : 'Signup'),
+                            child: Text(_isLogin ? 'Login' : 'Sign up'),
                           ),
                           FlatButton(
                             onPressed: () {
